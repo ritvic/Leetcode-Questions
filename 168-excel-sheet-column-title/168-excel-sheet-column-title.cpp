@@ -1,8 +1,15 @@
 class Solution {
 public:
     string convertToTitle(int n) {
-return n == 0 ? "" : convertToTitle((n - 1) / 26) + (char) ((n - 1) % 26 + 'A');
-
+        string ans;
+        while(n > 0) {
+            n--;
+            int curr = n % 26;
+            n = n / 26;
+            ans.push_back(curr + 'A');
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
             
         
     }
