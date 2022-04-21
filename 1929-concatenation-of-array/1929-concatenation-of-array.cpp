@@ -2,12 +2,10 @@ class Solution {
 public:
     vector<int> getConcatenation(vector<int>& nums) {
         
-        vector<int> c;
-        for(auto i:nums)
-            c.push_back(i);
-        for(auto i:nums)
-            c.push_back(i);
-        return c;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+            nums.push_back(nums[i]);
+        return nums;
         
     }
 };
