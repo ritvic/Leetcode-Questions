@@ -1,8 +1,13 @@
 class Solution {
 public:
+    void rev(vector<char>& s, int left, int right)
+    {
+        if(left>=right)                             // Base Condition
+            return;
+        swap(s[left++],s[right--]);                 // makes the problem smaller of same type            
+        rev(s,left,right);
+    }
     void reverseString(vector<char>& s) {
-        
-        for(int i=0;i<s.size()/2;i++)
-            swap(s[i],s[s.size()-1-i]);
+        rev(s,0,s.size()-1);
     }
 };
