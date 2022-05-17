@@ -7,22 +7,26 @@ typedef long long int ll;
 class Solution
 {
     public:
-    //Function to find the maximum money the thief can get.
-    int fun(int v[],int n,vector<int> &dp)
-    {
-        if(n<0)
-        return 0;
-        if(dp[n]!=-1)
-        return dp[n];
-        return dp[n]=max(fun(v,n-2,dp)+v[n],fun(v,n-3,dp)+v[n-1]);
-    }
+ 
     int FindMaxSum(int arr[], int n)
     {
         // Your code here
-        vector<int> dp(10007,-1);
+        int incl = arr[0];
+    int excl = 0;
+    int excl_new;
+    int i;
 
-         
-         return fun(arr,n-1,dp);
+    for (i = 1; i < n; i++) {
+        // Current max excluding i
+        excl_new = max(incl, excl);
+
+        // Current max including i
+        incl = excl + arr[i];
+        excl = excl_new;
+    }
+
+    // Return max of incl and excl
+    return max(incl, excl);
     }
 };
 
