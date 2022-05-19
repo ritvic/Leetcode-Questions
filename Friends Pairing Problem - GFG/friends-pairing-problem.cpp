@@ -6,20 +6,24 @@ using namespace std;
 class Solution
 {
 public:
+    long long int fun(int n,vector<int> &dp)
+    {
+         if(n==3)
+        return 4;
+        if(n==2)
+        return 2;
+        if(n==1)
+        return 1;
+        if(dp[n]!=-1)
+        return dp[n];
+        return dp[n]=(fun(n-1,dp)+(n-1)*fun(n-2,dp))%1000000007;
+    }
     int countFriendsPairings(int n) 
     { 
-        const int mod=1e9+7;
-       long long dp[n + 1];
-        for (int i = 0; i <= n; i++) 
-        {
-            if (i <= 2)
-                dp[i] = i;
-            else
-                dp[i] = (dp[i - 1] + ((i - 1) * dp[i - 2])%mod)%mod;
-        }
- 
-        return dp[n];
+        vector<int> dp(10001,-1);
+        return fun(n,dp);
     }
+
 };    
  
 
