@@ -9,37 +9,21 @@ using namespace std;
 
 class Solution{
     public:
-        int maxLevel(int h,int m)
-        {
-            // code here
-            int flag=1,level=0;
-            while(h>0 && m>0){
-                if(flag){
-                    h+=3;
-                    m+=2;
-                    level++;
-                    flag=0;
-                }
-                else{
-                    flag=1;
-                    level++;
-                    if(h>5 && m>10){
-                        h-=5;
-                        m-=10;
-                    }
-                    else if(h>20){
-                        h-=20;
-                        m+=5;
-                    }
-                    
-                    else {
-                        level--;
-                        break;
-                    }
-                }
-            }
-            return level;
-        }
+         int dp[1001][1001];
+
+        int helper(int h,int m){
+         if(h<=0|| m<=0) return 0;
+         if(dp[h][m]!=-1) return dp[h][m];
+         int a = helper(h-5+3,m-10+2)+2;
+         int b = helper(h-20+3,m+5+2)+2; 
+         return dp[h][m] = max(a,b);
+     }
+       int maxLevel(int h,int m)
+       {
+           // code here
+           memset(dp, -1, sizeof(dp));
+           return helper(h,m)-1;
+       }
 };
 
 // { Driver Code Starts.
