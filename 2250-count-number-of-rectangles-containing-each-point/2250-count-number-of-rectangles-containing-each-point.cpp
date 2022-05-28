@@ -1,19 +1,52 @@
 class Solution {
-    int t[105];
 public:
+//     vector<int> countRectangles(vector<vector<int>>& r, vector<vector<int>>& p) {
+        
+//         vector<vector<int>> v(101);
+//         for(auto i:r)
+//         {
+//             v[i[1]].push_back(i[0]);
+//         }
+//         for(auto jj:v)
+//         sort(jj.begin(),jj.end());
+//         vector<int> co;
+//         for(auto t:p)
+//         {
+//             int kk=0;
+//             for(int j=t[1];j<=100;j++)
+//             {
+//                 for(int i=0;i<v[j].size();i++)
+//                     if(v[j][i]>=t[0])
+//                     {kk+=v[j].size()-i;
+//                         break;}
+                
+//             }
+//             co.push_back(kk);
+//         }
+//         return co;
+//     }
+    
     vector<int> countRectangles(vector<vector<int>>& rectangles, vector<vector<int>>& points) {
-        int n=rectangles.size(),q=points.size(),i,j,k;
-        vector<int> ans(q);
-        sort(rectangles.begin(),rectangles.end());
-        vector<pair<int,int>> a(q);
-        for(i=0;i<q;i++)a[i]=make_pair(points[i][0],i);
-        sort(a.begin(),a.end());
-        for(i=q-1,j=n-1;~i;i--)
+        vector<vector<int>> v(111);
+        for (auto& e : rectangles)
         {
-            for(;~j&&rectangles[j][0]>=a[i].first;j--)for(k=rectangles[j][1];k<101;k+=k&-k)t[k]++;
-            for(k=points[a[i].second][1]-1;k;k^=k&-k)ans[a[i].second]+=t[k];
-            ans[a[i].second]=n-1-j-ans[a[i].second];
+            int x = e[0], y = e[1];
+            v[y].push_back(x);
         }
-        return ans;
+        for (int i = 1; i <= 100; ++i)
+            sort(v[i].begin(), v[i].end());
+        
+        vector<int> res;
+        for (auto& e : points)
+        {
+            int tmp = 0;
+            int x = e[0], y = e[1];
+            for (int i = y; i <= 100; ++i)
+            {
+                tmp += v[i].end() - lower_bound(v[i].begin(), v[i].end(), x);
+            }
+            res.push_back(tmp);
+        }
+        return res;
     }
 };
