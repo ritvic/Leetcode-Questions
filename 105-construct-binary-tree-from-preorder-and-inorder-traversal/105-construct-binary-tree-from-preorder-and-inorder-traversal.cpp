@@ -13,7 +13,7 @@ static int preindex=0;
 
 class Solution {
 public:
-    TreeNode* build(vector<int> &in,vector<int> &pre,int s,int e)
+    TreeNode* build(vector<int> &in,vector<int> &pre,int s,int e,map<int,int> &m)
     {
         
         if(s>e)
@@ -21,16 +21,18 @@ public:
         TreeNode* head=new TreeNode(pre[preindex++]);
         if(s==e)
         return head;
-        int mid=s;
-        while(in[mid] != head->val) mid++;
-        head->left=build(in,pre,s,mid-1);
-        head->right=build(in,pre,mid+1,e);
+        int mid=m[head->val];
+        head->left=build(in,pre,s,mid-1,m);
+        head->right=build(in,pre,mid+1,e,m);
         
         return head;
     }
     TreeNode* buildTree(vector<int>& pre, vector<int>& in) {
         preindex=0;
-                return build(in,pre,0,pre.size()-1);
+        map<int,int> m;
+        for(int i=0;i<in.size();i++)
+            m[in[i]]=i;
+                return build(in,pre,0,pre.size()-1,m);
 
     }
 };
