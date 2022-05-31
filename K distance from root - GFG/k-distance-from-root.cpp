@@ -129,8 +129,7 @@ void fun(Node* root, int k,vector<int> &v,int l)
 vector<int> Kdistance(struct Node *root, int k)
 {
   // Your code here
-  if(root==NULL)
-  return vector<int> {};
+
   vector<int> v;
   fun(root,k,v,0);
   return v;
