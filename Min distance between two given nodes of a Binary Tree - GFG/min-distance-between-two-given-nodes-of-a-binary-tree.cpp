@@ -124,10 +124,10 @@ class Solution{
     int findDist(Node* root, int a, int b) {
         // Your code here
         Node* l=lca(root,a,b);
-        int hlca=h(root,l->data,0),h1=h(root,a,0),h2=h(root,b,0);
+        int h1=h(l,a,0),h2=h(l,b,0);
         
         
-        return h1+h2-2*hlca;
+        return h1+h2;
     }
 };
 
