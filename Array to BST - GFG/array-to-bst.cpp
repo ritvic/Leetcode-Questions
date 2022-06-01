@@ -8,7 +8,7 @@ public:
 void fun(vector<int>&arr,int low,int high,vector<int>&v){
     int mid;
     if(low<=high){
-        mid = low + (high-low)/2;
+        mid = (high+low)/2;
         v.push_back(arr[mid]);
         fun(arr,low,mid-1,v);
         fun(arr,mid+1,high,v);
