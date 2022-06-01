@@ -83,21 +83,16 @@ Node *buildTree(string str) {
 
 class Solution {
   public:
-    void find(Node* root,int &maxx)
+    int find(Node* root,int &res)
     {
-        if(root==NULL)
-        return ;
-        find(root->left,maxx);
-        find(root->right,maxx);
-        int l=0,r=0;
-        if(root->left!=NULL)
-        l=root->left->data;
-        if(root->right!=NULL)
-        r=root->right->data;
-        int d=root->data;
-        root->data=max({d,l+d,d+r});
-        maxx=max({maxx,d,d+l,d+r,d+l+r});
-        return ;
+        if (root == NULL)
+        return 0;
+    int l = find(root->left,res);
+    int r = find(root->right,res);
+    int max_single = max(max(l, r) + root->data, root->data);
+    int max_top = max(max_single, l + r + root->data);
+    res = max(res, max_top); 
+    return max_single;
     }
     int findMaxSum(Node* root)
     {
