@@ -107,37 +107,18 @@ int main() {
 }// } Driver Code Ends
 
 
-// Function to delete a node from BST.
-Node* minValueNode(Node* node)
-{
-    Node* current = node;
- 
-    while (current && current->left != NULL)
-        current = current->left;
- 
-    return current;
-}
+
 Node *deleteNode(Node *root, int key) {
     
     if (root == NULL)
         return root;
     if (key < root->data)
         root->left = deleteNode(root->left, key);
- 
-    // If the key to be deleted is
-    // greater than the root's
-    // key, then it lies in right subtree
     else if (key > root->data)
         root->right = deleteNode(root->right, key);
- 
-    // if key is same as root's key, then This is the node
-    // to be deleted
     else {
-        // node has no child
         if (root->left==NULL and root->right==NULL)
             return NULL;
-       
-        // node with only one child or no child
         else if (root->left == NULL) {
             Node* temp = root->right;
             free(root);
@@ -148,15 +129,10 @@ Node *deleteNode(Node *root, int key) {
             free(root);
             return temp;
         }
- 
-        // node with two children: Get the inorder successor
-        // (smallest in the right subtree)
-        Node* temp = minValueNode(root->right);
- 
-        // Copy the inorder successor's content to this node
+        Node* temp = root->right;
+        while (temp && temp->left != NULL)
+        temp = temp->left;
         root->data = temp->data;
- 
-        // Delete the inorder successor
         root->right = deleteNode(root->right, temp->data);
     }
     return root;
