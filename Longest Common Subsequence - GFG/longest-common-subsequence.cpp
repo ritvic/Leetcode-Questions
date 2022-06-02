@@ -5,27 +5,28 @@ using namespace std;
 
  // } Driver Code Ends
 // function to find longest common subsequence
-vector<vector<int>> dp(1003,vector<int> (1003,-1));
 class Solution
 {
     public:
-    //Function to find the length of longest common subsequence in two strings.
-    int lcss(int m, int n, string X, string Y)
+
+    int lcs(int m, int n, string x, string y)
     {
-        // your code here
-        if (m == 0 || n == 0)
-        return dp[m][n]=0;
-        if(dp[m][n]!=-1)
+        vector<vector<int>> dp(1003,vector<int> (1003,-1));
+        for(int i=0;i<=m;i++)
+        {
+            for(int j=0;j<=n;j++)
+            {
+                if(j==0 ||i==0)
+                dp[i][j]=0;
+                else if(x[i-1]==y[j-1])
+                dp[i][j]=1+dp[i-1][j-1];
+                else
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
         return dp[m][n];
-    if (X[m-1] == Y[n-1])
-        return dp[m][n]=1 + lcss(m-1,n-1,X, Y);
-    else
-        return dp[m][n]=max(lcss(m,n-1,X, Y), lcss(m-1,n,X, Y));
-    }
-    int lcs(int m, int n, string X, string Y)
-    {
-        dp=vector<vector<int>>(1003,vector<int> (1003,-1));
-        return lcss(m,n,X,Y);
+
+        
     }
 
 };
