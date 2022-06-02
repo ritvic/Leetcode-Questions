@@ -8,35 +8,34 @@ class Solution{
     public:
     int circularSubarraySum(int a[], int n)
     {
-        int max_kadane = kadane(a, n);
-        if(max_kadane < 0)
-        return max_kadane;
-        int max_wrap = 0, i;
-        int maxele=a[0];
-        for (i = 0; i < n; i++) 
-        {
-            maxele=max(maxele,a[i]);
-            max_wrap += a[i];
-            a[i] = -a[i];
-        }
-        max_wrap = max_wrap + kadane(a, n);
-        if (max(max_wrap, max_kadane) ==0)
-        return maxele;
-        return (max_wrap > max_kadane) ? max_wrap : max_kadane;
+         if (n == 1)
+        return a[0];
+ 
+    // Initialize sum variable which store total sum of the array.
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += a[i];
     }
-    int kadane(int a[], int n)
-    {
-        int max_so_far = 0, max_ending_here = 0;
-        int i;
-        for (i = 0; i < n; i++) 
-        {
-            max_ending_here = max_ending_here + a[i];
-            if (max_so_far < max_ending_here)
-                max_so_far = max_ending_here;
-            if (max_ending_here < 0)
-                max_ending_here = 0;
-        }
+ 
+    // Initialize every variable with first value of array.
+    int curr_max = a[0], max_so_far = a[0], curr_min = a[0], min_so_far = a[0];
+ 
+    // Concept of Kadane's Algorithm
+    for (int i = 1; i < n; i++) {
+        // Kadane's Algorithm to find Maximum subarray sum.
+        curr_max = max(curr_max + a[i], a[i]);
+        max_so_far = max(max_so_far, curr_max);
+ 
+        // Kadane's Algorithm to find Minimum subarray sum.
+        curr_min = min(curr_min + a[i], a[i]);
+        min_so_far = min(min_so_far, curr_min);
+    }
+ 
+    if (min_so_far == sum)
         return max_so_far;
+ 
+    // returning the maximum value
+    return max(max_so_far, sum - min_so_far);
     }
 };
 
