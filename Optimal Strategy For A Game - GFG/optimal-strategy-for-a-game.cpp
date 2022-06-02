@@ -8,25 +8,24 @@ using namespace std;
 vector<vector<long long>> dp;
 class Solution{
     public:
-    long long fun(int arr[],int i,int j)
+    long long oSRec(int arr[], int i, int j, long long sum)
     {
-        if(i==j)
-        return dp[i][j]=arr[i];
-        if(j-i==1)
-        return dp[i][j]=max(arr[i],arr[j]);
-        if(i>j)
-        return dp[i][j]=0;
-        if(dp[i][j]!=-1)
+        if (j == i + 1)
+        return max(arr[i], arr[j]);
+ 
+    if (dp[i][j] != -1)
         return dp[i][j];
-        long long a,b;
-        a=arr[i]+min(fun(arr,i+2,j),fun(arr,i+1,j-1));
-        b=arr[j]+min(fun(arr,i+1,j-1),fun(arr,i,j-2));
-        return dp[i][j]=max(a,b);
+    dp[i][j] = max((sum - oSRec(arr, i + 1, j, sum - arr[i])),
+                     (sum - oSRec(arr, i, j - 1, sum - arr[j])));
+ 
+    return dp[i][j];
     }
+
     long long maximumAmount(int arr[], int n){
-        // Your code here
-        dp=vector<vector<long long>> (n+1,vector<long long> (n+1,-1));
-        return fun(arr,0,n-1);
+        dp=vector<vector<long long>>(n+1,vector<long long>(n+1,-1));
+        long long sum = 0;
+        sum = accumulate(arr, arr + n, sum);
+        return oSRec(arr, 0, n - 1, sum);
     }
 };
 
