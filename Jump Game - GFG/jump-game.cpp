@@ -9,33 +9,25 @@ using namespace std;
 
 class Solution {
   public:
-    int canReach(int arr[], int n) {
+    int canReach(int arr[], int n) 
+    {
         // code here
-           if (n <= 1)
-        return 1;
-    if (arr[0] == 0)
-        return 0;
-    int maxReach = arr[0];
-    
-    int step = arr[0];
-    
-    int jump = 1;
-    int i = 1;
-    for (i = 1; i < n; i++) {
-        if (i == n - 1)
-            return 1;
- 
-        maxReach = max(maxReach, i + arr[i]);
-        step--;
-        if (step == 0) {
-            jump++;
-            if (i >= maxReach)
-                return 0;
-            step = maxReach - i;
+        int farthest=0,jumps=0,current=0;
+        for(int i=0;i<n-1;i++)
+        {
+          farthest=max(farthest,i+arr[i]);
+          if(i==current)
+          {
+              jumps++;
+              current=farthest;
+          }
+               
         }
-    }
- 
-    return 0;
+        
+        if(current<n-1)
+        return 0;
+        return 1;
+
     }
 };
 
