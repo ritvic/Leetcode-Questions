@@ -12,54 +12,49 @@ class Solution
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         //required 
-        vector<int> key(V , INT_MAX) ; //index(node) ke corresponding weght/dist store krega 
-        vector<bool> mst(V, false) ; //ye track rakhega konsi node mst me he 
-        vector<int> parent(V, -1) ; //index(node) ke corresponding uska parent batayega 
+        vector<int> key(V , INT_MAX);
+        vector<bool> mst(V, false);
+        vector<int> parent(V, -1);
     
     
-        //-----lets start ALgo-----//
-        key[0] = 0 ;     //0 is source node 
-        parent[0] = -1 ; 
+        key[0] = 0; 
+        parent[0] = -1; 
         
         for( int i=0 ; i<V ; ++i)
         {
-            int mini = INT_MAX ; 
+            int mini = INT_MAX; 
             int u ; 
-            //1. find min weight wali node (from key )
             for( int v=0 ; v<V ; v++)
             {
                 if( mst[v]==false && key[v]<mini )
                 { 
-                    u = v ;         //v wala index hi min weight node he 
-                    mini = key[v] ; 
+                    u = v;
+                    mini = key[v]; 
                 }
             }
             
-            //2. mark min weight node true 
-            mst[u] = true ; 
+            mst[u] = true; 
             
-            //3. traverse adjancent of u 
             for( auto nbr : adj[u] )
             {
-                int v = nbr[0] ;     //neighbour node of U 
-                int w = nbr[1] ;     //weight from u to v 
+                int v = nbr[0];
+                int w = nbr[1];
                 
-                //3.1 agar v mst me nhi he aur V ka weight uske previous weight se kam he to update kar do 
                 if( mst[v] == false &&  w<key[v] )
                 {
-                    key[v] = w ; 
-                    parent[v] = u ;     //and v ka parent U initilise kar do 
+                    key[v] = w; 
+                    parent[v] = u;  
                 }
             }
         }
     
-    int sum= 0 ; 
+    int sum= 0; 
     for( auto it : key )
     {
-        sum += it ; 
+        sum += it; 
     }
     
-    return sum ; 
+    return sum; 
     
     }
 };
