@@ -44,6 +44,8 @@ class Solution
            head=head->next;
            q->next=r;
        }
+    //   free(head);
+    //   free(r);
        return q;
     }
     
