@@ -6,27 +6,28 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
     public:
-    
+    void reverseArray(int arr[], int start, int end)
+{
+    while (start < end) {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+}
     //Function to rotate an array by d elements in counter-clockwise direction. 
     void rotateArr(int arr[], int d, int n){
         // code here
-        int a[n];
-       int j=0;
-       d=d%n;
-   for(int i=d;i<n;i++){
-           a[j]=arr[i];
-           j++;
-       }
-       for(int i=0;i<d;i++){
-           a[j]=arr[i];
-           j++;
-       }
-
-       for(int i=0;i<n;i++){
-           arr[i]=a[i];
-       }
-
-       return;
+        if (d == 0)
+        return;
+    // in case the rotating factor is
+    // greater than array length
+    d = d % n;
+ 
+    reverseArray(arr, 0, d - 1);
+    reverseArray(arr, d, n - 1);
+    reverseArray(arr, 0, n - 1);
     }
 };
 
