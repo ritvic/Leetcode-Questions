@@ -42,17 +42,30 @@ class Solution{
        }
        return slow;
    }
-   Node* reverse(Node* ptr)
+//   struct Node *q=NULL,*r=NULL;
+//       while(head!=NULL)
+//       {
+//           r=q;
+//           q=head;
+//           head=head->next;
+//           q->next=r;
+//       }
+//     //   free(head);
+//     //   free(r);
+//       return q;
+   Node* reverse(Node* head)
    {
-       Node *prev=ptr,*curr=ptr->next;
-       while(curr!=NULL)
-       {
-           Node *temp=curr->next;
-           curr->next=prev;
-           prev=curr;
-           curr=temp;
-       }
-       return prev;
+       struct Node *q=NULL,*r=NULL;
+      while(head!=NULL)
+      {
+          r=q;
+          q=head;
+          head=head->next;
+          q->next=r;
+      }
+    //   free(head);
+    //   free(r);
+      return q;
    }
    bool isPalindrome(Node *head)
    {
