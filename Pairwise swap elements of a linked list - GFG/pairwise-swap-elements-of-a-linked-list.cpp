@@ -39,26 +39,18 @@ class Solution
     Node* pairWiseSwap(Node* head) 
     {
         // The task is to complete this method
-        Node* node = head; 
-      for(int i=0; i<k; i++)
-        {
-          if(node==NULL)
-              return head;
-          node = node->next;
+        if(!head || !head->next)
+            return head;
+        Node *t = new Node(0), *ptr = head, *prev = t;
+        while(ptr && ptr->next){
+            Node *a = ptr, *b = ptr->next;
+            ptr = ptr->next->next;
+            b->next = a;
+            a->next = ptr;
+            prev->next = b;
+            prev = a;
         }
-
-      Node* curr = head, *next = head, *prev = NULL;
-      int count = 0;
-      while(count<k)
-      {
-          next = curr->next;
-          curr->next = prev;
-          prev = curr;
-          curr = next;
-          count++; 
-      }
-      head->next = pairWiseSwap(next);
-      return prev; 
+        return t->next;
     }
 };
 
