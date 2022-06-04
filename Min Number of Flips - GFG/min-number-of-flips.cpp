@@ -20,15 +20,28 @@ int32_t main()
 int minFlips (string s)
 {
     // your code here
-    int c0 = 0,c1 = 0;
-		for(int i = 0;i<s.length();i++){
-			if(i%2 == 0 && s[i] == '1') c0++;
-			else if(i%2 != 0 && s[i] == '0') c0++;
-		}
-		for(int i = 0;i<s.length();i++){
-			if(i%2 == 0 && s[i] == '0') c1++;
-			else if(i%2 != 0 && s[i] == '1') c1++;
-		}
-		return min(c0,c1);
+    int e0=0,e1=0,o0=0,o1=0,n=s.size();
+    for(int i=0;i<n;i++)
+    {
+        if(i%2==0)
+        {
+            if(s[i]=='0')
+            e0++;
+            else
+            e1++;
+        }
+        else
+        {
+            if(s[i]=='0')
+            o0++;
+            else
+            o1++;
+        }}
+        int a=0,b=0;
+        // cout<<o1<<o0<<e1<<e0<<" ";  
+        a=o1+e0;
+        b=o0+e1;
+        return min(a,b);
         
+    
 }
