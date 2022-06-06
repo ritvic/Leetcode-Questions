@@ -79,45 +79,25 @@ struct Node {
     next = NULL;
   }
 }; */
-int length(Node*head)
-{
-    Node*ptr=head;
-    int cnt=0;
-    while(ptr->next!=NULL)
-    {
-        cnt++;
-        ptr=ptr->next;
-    }
-    return cnt;
-}
+
 //Function to find intersection point in Y shaped Linked Lists.
 int intersectPoint(Node* head1, Node* head2)
 {
     // Your Code Here
-    int cnt1=length(head1);
-    int cnt2=length(head2);
-    int diff=abs(cnt1-cnt2);
-    Node*ptr1=head1;
-    Node*ptr2=head2;
-    if(cnt1>cnt2)
-    {
-        for(int i=0;i<diff;i++)
-        {
-            ptr1=ptr1->next;
+   Node* t1 = head1 , *t2 = head2 ;
+    while(t1 != t2){
+        t1 = t1->next ;
+        t2 = t2->next ;
+        if(t1 == t2){
+            return t1->data ;
+        }
+        if(!t1){
+            t1 = head2 ;
+        }
+        if(!t2){
+            t2 = head1 ;
         }
     }
-    if(cnt2>cnt1)
-    {
-        for(int i=0;i<diff;i++)
-        {
-            ptr2=ptr2->next;
-        }
-    }
-    while(ptr1!=ptr2)
-    {
-        ptr1=ptr1->next;
-        ptr2=ptr2->next;
-    }
-    return ptr1->data;
+    return t1->data ;
 }
 
