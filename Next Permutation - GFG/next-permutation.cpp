@@ -21,7 +21,7 @@ public:
                     if(arr[j]>arr[i])
                     {
                         swap(arr[i],arr[j]) ;
-                        reverse(arr.begin()+i+1, arr.end()) ;
+                        sort(arr.begin()+i+1, arr.end()) ;
                         return arr ;
                     }
                 }
