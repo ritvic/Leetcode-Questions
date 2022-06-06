@@ -110,28 +110,47 @@ struct Node{
 
 /*  Function which returns the  root of 
     the flattened linked list. */
+void assign(Node* &head, Node* &tail, Node* ptr) {
+    if (ptr == NULL)
+        return;
+    if (head == NULL) {
+        head = ptr;
+        tail = ptr;
+    }
+    else{
+        tail -> bottom = ptr;
+        tail = tail -> bottom;
+    }
+}
+Node* mergeList(Node* head1, Node* head2) {
+    Node* head = NULL;
+    Node* tail = NULL;
+    while (head1 != NULL && head2 != NULL) {
+        if (head1 -> data <= head2 -> data) {
+            assign(head, tail, head1);
+            head1 = head1 -> bottom;
+        }
+        else {
+            assign(head, tail, head2);
+            head2 = head2 -> bottom;
+        }
+    }
+    if (head1 == NULL) assign(head, tail, head2);
+    if (head2 == NULL) assign(head, tail, head1);
+    return head;
+    
+}
 Node *flatten(Node *root)
 {
    // Your code here
-   vector<int> v;
-   Node* temp=root;
-   while(temp)
-   {
-       Node* t=temp;
-       while(t)
-       {
-           v.push_back(t->data);
-           t=t->bottom;
-       }
-       temp=temp->next;
-   }
-   sort(v.begin(),v.end());
-   Node* head=new Node(v[0]);
-   Node* ss=head;
-   for(int i=1;i<v.size();i++)
-   {
-       ss->bottom=new Node(v[i]);
-       ss=ss->bottom;
+   Node* head = NULL;
+   Node* ptr = root;
+   Node* next = NULL;
+   while (ptr != NULL) {
+       next = ptr -> next;
+       ptr -> next = NULL;
+       head = mergeList(head, ptr);
+       ptr = next;
    }
    return head;
 }
