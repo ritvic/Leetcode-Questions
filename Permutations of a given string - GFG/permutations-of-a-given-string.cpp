@@ -7,21 +7,23 @@ class Solution
 {
 	public:
 		set<string> st;
-	    void permutate(string k, string ans){
-	        if(k.length() == 0){
-	            st.insert(ans);
-	            return;
-	        }
-	        for(int i=0;i<k.length();i++){
-	         char ch = k[i];
-	         string ros = k.substr(0,i) + k.substr(i+1);
-	            
-	            permutate(ros, ans+ch);
-	        }
-	    }
+	    void permute(string a, int l, int r) 
+        { 
+            if (l == r) 
+                st.insert(a); 
+            else
+            { 
+                for (int i = l; i <= r; i++) 
+                { 
+                    swap(a[l], a[i]); 
+                    permute(a, l+1, r); 
+                    swap(a[l], a[i]); 
+                } 
+            } 
+        }
 		vector<string>find_permutation(string S)
 		{
-		    permutate(S,"");
+		    permute(S,0,S.size()-1);
 		    vector<string> Perm_ans(st.begin(),st.end());
 		    return Perm_ans;
 		}
