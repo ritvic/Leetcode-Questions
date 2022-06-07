@@ -36,10 +36,8 @@ class Solution{
 	for (int i = 1; i < n-1; i++)
 	{
 	int var=min(left[i],right[i]);
-	if(var > arr[i])
-	{
-		water += var - arr[i];
-	}
+	water += var - arr[i];
+	
 	}
 		
 
