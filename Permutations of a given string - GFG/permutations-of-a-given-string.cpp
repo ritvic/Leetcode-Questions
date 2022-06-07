@@ -7,23 +7,22 @@ class Solution
 {
 	public:
 		set<string> st;
-	    void permute(string a, int l, int r) 
-        { 
-            if (l == r) 
-                st.insert(a); 
-            else
-            { 
-                for (int i = l; i <= r; i++) 
-                { 
-                    swap(a[l], a[i]); 
-                    permute(a, l+1, r); 
-                    swap(a[l], a[i]); 
-                } 
-            } 
-        }
+	    // using next_permutation
+void permute(string str)
+{
+    // Sort the string in lexicographically
+    // ascending order
+    sort(str.begin(), str.end());
+ 
+    // Keep printing next permutation while there
+    // is next permutation
+    do {
+       st.insert(str);
+    } while (next_permutation(str.begin(), str.end()));
+}
 		vector<string>find_permutation(string S)
 		{
-		    permute(S,0,S.size()-1);
+		    permute(S);
 		    vector<string> Perm_ans(st.begin(),st.end());
 		    return Perm_ans;
 		}
