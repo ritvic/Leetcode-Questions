@@ -10,44 +10,39 @@ using namespace std;
  // } Driver Code Ends
 //User function Template for C++
 
-unordered_map<int,string>mp;
+ vector<string> mp={ "","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
 class Solution
 {
    public:
    
-   void fun(string &str,vector<string>&ans,int i,int a[],int N)
+   void fun(string s,vector<string>&v,string ans)
    {
-       if(i>=N)
+       if(s.length()==0)
        {
-           ans.push_back(str);
+           v.push_back(ans);
            return;
        }
-      string str1=mp[a[i]];
+      string str1=mp[s[0]-'0'];
+      char ch=s[0];
+      string ros=s.substr(1);
       for(int j=0;j<str1.size();j++)
       {
-          str.push_back(str1[j]);
-          fun(str,ans,i+1,a,N);
-          str.pop_back();
+         fun(ros,v,ans+str1[j]);
       }
+      return;
       
        
    }
    //Function to find list of all words possible by pressing given numbers.
    vector<string> possibleWords(int a[], int N)
    {
-       vector<string>ans;
-       string str;
-       mp[2]="abc";
-       mp[3]="def";
-       mp[4]="ghi";
-       mp[5]="jkl";
-       mp[6]="mno";
-       mp[7]="pqrs";
-       mp[8]="tuv";
-       mp[9]="wxyz";
-       fun(str,ans,0,a,N);
-       sort(ans.begin(),ans.end());
-       return ans;
+       vector<string>v;
+       string str="";
+       for(int i=0;i<N;i++)
+       str+=to_string(a[i]);
+       fun(str,v,"");
+       sort(v.begin(),v.end());
+       return v;
    }
 };
 
