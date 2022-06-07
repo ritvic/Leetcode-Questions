@@ -11,24 +11,39 @@ class Solution{
     public:
     long long trappingWater(int arr[], int n){
         int left[n];
-        int right[n];
-        int maxLeft = arr[0];
-        int maxRight = arr[n-1];
-        for(int i=0,j=n-1;i<n && j>=0;i++,j--){
-            if(arr[i]>maxLeft){
-                maxLeft = arr[i];
-            }
-            if(arr[j]>maxRight){
-                maxRight = arr[j];
-            }
-            left[i] = maxLeft;
-            right[j] = maxRight;
-        }
-        long long water = 0;
-        for(int i=0;i<n;i++){
-            water = water + (min(right[i],left[i])-arr[i]);
-        }
-        return water;
+
+	// Right [i] contains height of tallest bar to
+	// the right of ith bar including itself
+	int right[n];
+
+	// Initialize result
+	long long water = 0;
+
+	// Fill left array
+	left[0] = arr[0];
+	for (int i = 1; i < n; i++)
+		left[i] = max(left[i - 1], arr[i]);
+
+	// Fill right array
+	right[n - 1] = arr[n - 1];
+	for (int i = n - 2; i >= 0; i--)
+		right[i] = max(right[i + 1], arr[i]);
+
+	// Calculate the accumulated water element by element
+	// consider the amount of water on i'th bar, the
+	// amount of water accumulated on this particular
+	// bar will be equal to min(left[i], right[i]) - arr[i] .
+	for (int i = 1; i < n-1; i++)
+	{
+	int var=min(left[i],right[i]);
+	if(var > arr[i])
+	{
+		water += var - arr[i];
+	}
+	}
+		
+
+	return water;
         
     }
 };
