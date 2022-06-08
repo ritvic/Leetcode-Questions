@@ -11,56 +11,37 @@ double MedianOfArrays(vector<int>& array1, vector<int>& array2);
 
 class Solution{
     public:
-    double MedianOfArrays(vector<int>& nums1, vector<int>& nums2)
+    double MedianOfArrays(vector<int>& ar1, vector<int>& ar2)
     {
-        // Your code goes herez
-        vector <int>v;
-       int size1=nums1.size();
-        int size2=nums2.size();
-          int i,j;
-       double Median=0.0;
-       for(i=0,j=0;i<size1&&j<size2;){
-           if(nums1[i]<=nums2[j]){
-               v.push_back(nums1[i]);
-               i++;
-           }
-           else{
-               v.push_back(nums2[j]);
-               j++;
-           }
-       }
-           if(i==size1){
-               while(j<size2){
-                   v.push_back(nums2[j]);
-               j++;
-               }
-           }
-               
-           if(j==size2){
-               while(i<size1){
-                   v.push_back(nums1[i]);
-                    i++;
-               }
-           }
-       int n=v.size();
-       
-       
-       
-       
-       
-       if(n%2==0){
-           int r1=v[n/2];
-           int r2=v[(n-2)/2];
-           Median=(r1+r2)/2.000000;
-       }
-       
-       else{
-           Median=v[(n-1)/2];
-       }
-       
-       return Median;
-    
-    }
+        int m=ar2.size(),n=ar1.size();
+        int i = 0; 
+        int j = 0; 
+        int count;
+        int m1 = -1, m2 = -1;
+        for (count = 0; count <= (m + n)/2; count++)
+        {
+            m2=m1;
+            if(i != n && j != m)
+            {
+                m1 = (ar1[i] > ar2[j]) ? ar2[j++] : ar1[i++];
+            }
+            else if(i < n)
+            {
+                m1 = ar1[i++];
+            }
+            else
+            {
+                m1 = ar2[j++];
+            }
+        }
+        if((m + n) % 2 == 1){
+            return m1;
+        }
+        else{
+            return (m1+m2)/2.0000;
+        }
+        
+        }
 };
 
 // { Driver Code Starts.
