@@ -6,63 +6,96 @@ using namespace std;
  // } Driver Code Ends
 // design the class in the most optimal way
 
-class node{
-public:
-   pair<int,int> d;
-   node *next,*prev;
-   node(pair<int,int> n){
-       d=n;
-       next=NULL;
-       prev=NULL;
-   }
-};
-class LRUCache {
-public:
-   int s;
-   node *head,*tail;
-   unordered_map<int,node*> mp;
-   LRUCache(int capacity) {
-       s=capacity;
-       head = new node({0,0});
-       head->next = new node({0,0});
-       head->next->prev=head;
-       tail=head->next;
-   }
-   
-   void insert(int ele,int key){
-       node *ptr=head->next;
-       node *p= new node({key,ele});
-       p->prev=head;
-       p->next=head->next;
-       ptr->prev=p;
-       head->next=p;
-       s--;
-       mp[key]=p;
-   }
-   
-   void del(node *ptr){
-       node *p=ptr->prev;
-       node *b=ptr->next;
-       p->next=b;
-       b->prev=p;
-       mp[ptr->d.first]=NULL;
-       s++;
-   }
-   
-   int get(int key) {
-       if(!mp[key]) return -1; 
-       int b=mp[key]->d.second;
-       auto p=mp[key];
-       del(p);
-       insert(b,key);
-       return b;
-   }
-   
-   void set(int key, int value) {
-       if(mp[key]) del(mp[key]);
-       if(!s) del(tail->prev);
-       insert(value,key);
-   }
+class LRUCache{
+    
+    public:
+    class node 
+    {
+        public: 
+        int key;
+        int value;
+        node * prev;
+        node * next;
+        
+        node(int _key,int _value)
+        {
+            key = _key;
+            value = _value;
+        }
+    };
+    
+    node* head = new node(-1, -1);
+    node* tail = new node(-1, -1);
+    int cap;
+    map<int, node *> m;
+    
+    // Constructor for initializing the
+    // cache capacity with the given value.
+    LRUCache(int capacity)
+    {
+        cap = capacity;
+        head->next = tail;
+        tail->prev = head;
+    }
+    
+    void addnode(node * temp)
+    {
+        node * dummy = head->next;
+        head->next = temp;
+        temp->prev = head;
+        temp->next = dummy;
+        dummy->prev = temp;
+    }
+    
+    void deletenode(node * temp)
+    {
+        node * delnext = temp->next;
+        node * delprev = temp->prev;
+        delnext->prev = delprev;
+        delprev->next = delnext;
+    }
+    
+    // This method works in O(1)
+    int get(int key)
+    {
+        if (m.find(key) != m.end())
+        {
+            node * res =  m[key];
+            m.erase(key);
+            int ans = res->value;
+            deletenode(res);
+            addnode(res);
+            m[key] = head->next;
+        //   cout << "Got the value : " << ans 
+        //         << " for the key: " << key << "\n";
+            return ans;
+        }
+        // cout << "Did not get any value for the key: " 
+        //      << key << "\n";
+        return -1;
+    }
+    
+    // This method works in O(1)
+    void set(int key, int value)
+    {
+        
+        // cout << "Going to set the (key, value) : (" 
+        //      << key << ", " << value << ")" << "\n";
+        if (m.find(key) != m.end())
+        {
+            node * exist = m[key];
+            m.erase(key);
+            deletenode(exist);
+        }
+        
+        if (m.size() == cap)
+        {
+            m.erase(tail->prev->key);
+            deletenode(tail->prev);
+        }
+        addnode(new node(key, value));
+        m[key] = head->next;
+    }
 };
 
 
