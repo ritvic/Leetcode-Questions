@@ -1,5 +1,5 @@
 # Maximum XOR subarray
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an array <strong>arr[]&nbsp;</strong>of size,&nbsp;<strong>N.</strong>&nbsp;Find the subarray with maximum XOR</span>. <span style="font-size:18px">A subarray is a contiguous part of the array.</span></p>
 
