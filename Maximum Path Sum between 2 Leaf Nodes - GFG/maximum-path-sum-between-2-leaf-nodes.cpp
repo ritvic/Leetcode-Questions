@@ -94,15 +94,17 @@ class Solution {
 public:
     int ans=INT_MIN;
    int helper(Node* root){
-       if(!root->left&&!root->right){
-           return root->data;
-       }
-       if(!root->right){
-           return root->data+helper(root->left);
-       }
-       if(!root->left){
-           return root->data+helper(root->right);
-       }
+       if(root==NULL)
+       return 0;
+      if(!root->left&&!root->right){
+          return root->data;
+      }
+      if(!root->right){
+          return root->data+helper(root->left);
+      }
+      if(!root->left){
+          return root->data+helper(root->right);
+      }
        int l=helper(root->left);
        int r=helper(root->right);
        ans=max(ans,root->data+l+r);
@@ -111,8 +113,8 @@ public:
    int maxPathSum(Node* root)
    {      
        int p=helper(root);
-       if(root->left&&root->right)
-           return ans;
+      if(root->left&&root->right)
+          return ans;
        return max(p,ans);
    }
 };
