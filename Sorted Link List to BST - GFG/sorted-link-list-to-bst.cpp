@@ -72,35 +72,33 @@ struct TNode
 }; */
 class Solution{
   public:
-        TNode* fun(vector<int>&arr,int low,int high){
-            if(low>high)
-            return NULL;
-            int mid;
-            // TNode* head=NULL;
-            if(low<=high)
-            {
-                mid = ceil(float(high+low)/2);
-                TNode* head=new TNode(arr[mid]);
-                TNode* left=fun(arr,low,mid-1);
-                TNode* right=fun(arr,mid+1,high);
-                head->left=left;head->right=right;
-                return head;
-            }
-        }
-        
-    TNode* sortedListToBST(LNode *head) {
-        
-        LNode* temp=head;
-        vector<int> v;
-        while(temp)
-        {
-            v.push_back(temp->data);
-            temp=temp->next;
-        }
-        TNode* t= fun(v,0,v.size()-1);
-        return t;
-        //code here
-    }
+        TNode * solve(LNode *head)
+   {
+       if(!head->next)return new TNode(head->data);
+       LNode*prev=NULL;
+       LNode* slow=head;
+       LNode* fast=head;
+       
+       while(fast && fast->next)
+       {
+           prev=slow;
+           fast=fast->next->next;
+           slow=slow->next;
+       }
+       
+       TNode* root=new TNode(slow->data);
+       
+       prev->next=NULL;
+       root->left=solve(head);
+       
+       if(slow->next)
+       root->right=solve(slow->next);
+       return root;
+       
+   }
+   TNode* sortedListToBST(LNode *head) {
+       return solve(head);
+   }
 };
 
 // { Driver Code Starts.
