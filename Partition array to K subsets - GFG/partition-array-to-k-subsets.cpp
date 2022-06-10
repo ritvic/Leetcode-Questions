@@ -8,35 +8,36 @@ using namespace std;
 
 class Solution{
   public:
-    bool isKPartitionPossible(int a[], int n, int k)
-    {
-         //Your code here
-        sort(a,a+n);
-        int sum=0; 
-        for(int i=0;i<n;i++)
-        sum+=a[i];
-        
-        if(sum%k!=0)return false;
-        sum=sum/k;
-       
-        for(int i=1;i<=k;i++)
-        {
-            int cur=0;
-            for(int i=n-1; i>=0; i--)
-            {
-                if(a[i]+cur<=sum)
-                {
-                    cur+=a[i];
-                    a[i]=0;
-                }
-                
-                if(cur==sum)
-                break;
-            }
-            if(cur<sum)return false;
-        }
-       return true;
-    }
+    bool solve(int sum,int n,vector<int>& vis,int csum,int a[],int k)
+   {
+       if(k==1)
+       {
+           return true;
+       }
+       if(csum>sum)return false;
+       if(csum==sum)
+       {
+           return solve(sum,n,vis,0,a,k-1);
+       }
+       for(int i=0;i<n;i++)
+       {
+           if(!vis[i])
+           {
+               vis[i]=1;
+               if(solve(sum,n,vis,csum+a[i],a,k))return true;
+               vis[i]=0;
+           }
+       }
+       return false;
+   }
+   bool isKPartitionPossible(int a[], int n, int k)
+   {
+       int sum=accumulate(a,a+n,0);
+       if(k>n || sum%k!=0)return false;
+       vector<int> vis(n,0);
+       sum/=k;
+       return solve(sum,n,vis,0,a,k);
+   }
 };
 
 // { Driver Code Starts.
