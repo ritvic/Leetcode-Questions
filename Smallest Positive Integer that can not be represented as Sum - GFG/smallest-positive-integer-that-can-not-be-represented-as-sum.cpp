@@ -19,7 +19,7 @@ public:
     
     sort(array.begin(), array.end());
     
-    for (auto& value : array) 
+    for (auto value : array) 
         if( total >= value ) total+=value;
     
     return total;
