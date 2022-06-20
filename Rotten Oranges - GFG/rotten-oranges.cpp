@@ -13,24 +13,27 @@ class Solution
             return true;
         return false;
     }
-    int orangesRotting(vector<vector<int>>& grid) {
-        // Code here
-        int n=grid.size(),m=grid[0].size(),tot=0;
-
+    
+    int orangesRotting(vector<vector<int>>& grid) 
+    {
+        int n = grid.size(), m = grid[0].size(), tot = 0;
+        
         queue <pair<int,int> > q;
-        for(int i=0;i<n;i++)
+        
+        for (int i=0; i<n; i++)
         {
-            for(int j=0;j<m;j++)
+            for (int j=0; j<m; j++)
             {
                 if (grid[i][j]!=0)
                     tot++;
-                if(grid[i][j]==2)
-                {
+                    
+                if (grid[i][j]==2)
                     q.push({i,j});
-                }
             }
         }
+        
         int count = 0, timer = 0;
+        
         while (!q.empty())
         {
             int k = q.size();
