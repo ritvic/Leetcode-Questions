@@ -5,32 +5,27 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-	int isNegativeWeightCycle(int n, vector<vector<int>>edges){
-	    // Code here
-	    vector<int> dist(n,1000000);
-	    dist[0]=0;
-	    
-	    for(int i=1; i<=n-1; i++)
-	    {
-            for(auto &edge:edges)
-	        {
-	            if(dist[edge[0]]+edge[2]<dist[edge[1]])
-	            {
-	                dist[edge[1]]=dist[edge[0]]+edge[2];
-	            }
-	        }
-	    }
-	    
-        for(auto &edge:edges)
-        {
-            if(dist[edge[0]]+edge[2]<dist[edge[1]])
-            {
-               return 1;
+	int isNegativeWeightCycle(int n, vector<vector<int>>adj){
+    vector<int>dis(n,1e9);
+    dis[0]=0;
+    bool f = false;
+    for(int i=0;i<n;i++){
+        for(auto k:adj){
+            
+            int u = k[0];
+            int v = k[1];
+            int w = k[2];
+            
+            if(dis[v]>dis[u]+w){
+                dis[v]=dis[u]+w;
+                
+                if(i==n-1)f=true;
             }
         }
-	    
-	    return 0;
-	}
+    }
+    
+    return f;
+    }
 };
 
 // { Driver Code Starts.
