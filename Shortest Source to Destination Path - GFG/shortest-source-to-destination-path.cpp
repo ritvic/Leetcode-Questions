@@ -10,29 +10,33 @@ using namespace std;
 class Solution {
   public:
     int shortestDistance(int N, int M, vector<vector<int>> A, int X, int Y) {
-        // code here
-         // code here
-       if(A[0][0]==0) return -1;
-       vector<int> moves={1,0,-1,0,1};
-       queue<vector<int>>q;
-       q.push({0,0,0});
-       A[0][0]=0;
-       while(!q.empty()){
-           int x=q.front()[0],y=q.front()[1],steps=q.front()[2];
-           q.pop();
-           for(int i=0;i<4;i++){
-               int nx=x+moves[i],ny=y+moves[i+1];
-               if(nx>=0 && ny>=0 && nx<N && ny<M && A[nx][ny]==1){
-                   if(nx==X && ny==Y){
-                       return steps+1;
-                   }else{
-                       A[nx][ny]=0;
-                       q.push({nx,ny,steps+1});
-                   }
-               }
-           }
-       }
-       return -1;
+        int lvl = 0;
+        vector <pair<int,int>> dir{{0,1}, {0,-1}, {1,0}, {-1,0}};
+        if(A[0][0] == 0 || A[X][Y] == 0)
+            return -1;
+        queue <pair<int,int>> q;
+        q.push({0, 0});
+        while(!q.empty()){
+            int n = q.size();
+            while(n--){
+                pair <int,int> p = q.front();
+                q.pop();
+                int x = p.first;
+                int y = p.second;
+                if(x == X && y == Y)
+                    return lvl;
+                for(auto i:dir){
+                    int I = x + i.first;
+                    int J = y + i.second;
+                    if(I >= 0 && J >= 0 && I < N && J < M && A[I][J] == 1){
+                        A[I][J] = 0;
+                        q.push({I, J});
+                    }
+                }
+            }
+            lvl += 1;
+        }
+        return -1;
     }
 };
 
