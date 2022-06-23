@@ -6,42 +6,23 @@ using namespace std;
 class Solution {
   public:
     // Function to count paths between two vertices in a directed graph.
-//     void solve(vector<int> adj[], int& cnt,int source, int destination){
-//       if(source == destination){
-//           cnt++;
-//           return;
-//       }
-//       for(int u:adj[source]){
-//           solve(adj,cnt,u,destination);
-//       }
-//   }
-   
-//   int countPaths(int V, vector<int> adj[], int source, int destination) {
-//       // Code here
-//       int cnt=0;
-//       solve(adj,cnt,source,destination);
-//       return cnt;
-//   }
-   void dfs(int s, int d, int &count, vector<bool> &visited, vector<int>adj[]){
-       if(s==d){
-           count++;
+    void solve(vector<int> adj[], int& cnt,int source, int destination){
+       if(source == destination){
+           cnt++;
            return;
        }
-       visited[s]=1;
-       for(auto nbr: adj[s]){
-           if(!visited[nbr]){
-               dfs(nbr,d,count,visited,adj);
-           }
+       for(int u:adj[source]){
+           solve(adj,cnt,u,destination);
        }
-       visited[s]=0;
    }
+   
    int countPaths(int V, vector<int> adj[], int source, int destination) {
        // Code here
-       int count=0;
-       vector<bool> visited(V, false);
-       dfs(source,destination,count,visited,adj);
-       return count;
+       int cnt=0;
+       solve(adj,cnt,source,destination);
+       return cnt;
    }
+   
 };
 
 // { Driver Code Starts.
