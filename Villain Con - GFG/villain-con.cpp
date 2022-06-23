@@ -9,39 +9,35 @@ using namespace std;
 
 class Solution{
 public:
+
+    int dfs(int node, int n, vector<int> adj[], vector<int>& dp){
+        if(dp[node] != -1)  return dp[node];
+        int chainLen = 1;
+        for(auto nodes: adj[node]){
+            int val = 1 + dfs(nodes, n, adj, dp);
+            chainLen = max(chainLen, val);
+        }
+        return dp[node] = chainLen;
+    }
     int minColour(int N, int M, vector<int> mat[]) {
-
-        vector<vector<int>> ad(N+1);
-        vector<int> in(N+1,0);
-        for(int i = 0; i < M;i++){
-            ad[mat[i][1]].push_back(mat[i][0]);            
-            in[mat[i][0]]++;
-
+        // code here
+        vector<int> adj[N+1];
+        for(int i=0;i<M;i++){
+            int v = mat[i][0], u = mat[i][1];
+            adj[u].push_back(v);
         }
-        queue<int> helper;
-        for(int i = 1; i<=N;i++){
-            if(in[i]==0){
-                helper.push(i);
+        int res = 0;
+        vector<int> dp(N+1, -1);
+        for(int i=1;i<=N;i++){
+            if(dp[i] == -1){
+                int chainLen = dfs(i, N, adj, dp);
+                res = max(res, chainLen);
+            }
+            else{
+                res = max(res, 1+dp[i]);
             }
         }
-        int ans = 0;
-        while(helper.size()!=0){
-            int k = helper.size();
-            for(int i = 0; i < k;i++){
-                int node = helper.front();
-                helper.pop();
-                for(int j = 0; j < ad[node].size();j++){
-                    if(in[ad[node][j]]>=1){
-                        in[ad[node][j]]--;
-                        if(in[ad[node][j]]==0){
-                            helper.push(ad[node][j]);
-                        }
-                    }
-                }
-            }
-            ans++;
-        }
-        return ans;
+        return res;
     } 
 };
 
