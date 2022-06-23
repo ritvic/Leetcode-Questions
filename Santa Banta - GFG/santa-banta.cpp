@@ -33,10 +33,10 @@ void precompute()
 {
     int a = 0;
 }
-    bool IsPrime[1000005];
 
 int SieveOfEratosthenes(int c)
 {
+    bool IsPrime[1000005];
     memset(IsPrime, true, sizeof(IsPrime));
  
     for (int p = 2; p * p < 1000005; p++){
