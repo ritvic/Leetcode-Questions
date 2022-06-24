@@ -13,25 +13,18 @@ class Solution{
     int maxIndexDiff(int A[], int N) 
     { 
         // Your code here
-        int ans=0;
-       stack<int> st;
-       int i;
-       for(i=0;i<N;i++)
-       {
-           if(st.empty() || A[st.top()]>A[i])
-           {
-               st.push(i);
+        int l=0,r=N-1,maxx=-1;
+       while(l<=r){
+           if(A[l]<=A[r]){
+               maxx=max(maxx,r-l);
+               l++;
+               r=N-1;
+           }       
+           else{
+               r--;
            }
        }
-       for(i=N-1;i>=0;i--)
-       {
-           while(!st.empty() && A[i]>=A[st.top()])
-           {
-               ans=max(ans,i-st.top());
-               st.pop();
-           }
-       }
-       return ans;
+       return maxx;
     }
 };
 
