@@ -5,17 +5,19 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
   public:
-    vector<int> duplicates(int a[], int n) {
+    vector<int> duplicates(int arr[], int n) {
         // code here
-        unordered_map<int,int> m;
         vector<int> v;
-        for(int i=0;i<n;i++)
+        for (int i = 0; i < n; i++) 
         {
-            m[a[i]]++;
+            int index = arr[i] % n;
+            arr[index] += n;
         }
-        for(int i=0;i<n;i++)
-        if(m[i]>1)
-        v.push_back(i);
+        for (int i = 0; i < n; i++)
+        {
+            if ((arr[i] / n) >= 2)
+                v.push_back(i);
+        }
 
         return (v.empty())?vector<int> {-1}:v;
     }
