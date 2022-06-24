@@ -14,8 +14,7 @@ public:
         if(i>=1 && j>=1  && i<=n && j<=n && !vis[i][j]) return true;
         return false;
     }
-    int dx[8] = {-1,-2,-2,-1,1,2, 2, 1};
-    int dy[8] = {2,1,-1,-2,2,1, -1, -2};
+    vector<vector<int>> xy={{2,1},{2,-1},{-2,-1},{-2,1},{1,2},{1,-2},{-1,2},{-1,-2}};
 	int minStepToReachTarget(vector<int>&kk, vector<int>&ttt, int N){
 	    // Code here
 	    queue<pair<int,int>> q;
@@ -35,7 +34,7 @@ public:
 	            if(x.first==ttt[0] && x.second==ttt[1]) return step;
 	            for(int i=0;i<8;i++)
 	            {
-	                int o=dx[i]+x.first,p=dy[i]+x.second;
+	                int o=xy[i][0]+x.first,p=xy[i][1]+x.second;
 	                if(isvalid(o,p,N,vis))
 	                {q.push({o,p});vis[o][p]=true;}
 	            }
