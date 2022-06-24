@@ -1,5 +1,5 @@
 # Multiply two strings
-##  Medium 
+## Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given two numbers as strings s1 and s2. Calculate their Product.<br>
 <strong>Note:</strong> The numbers can be negative.</span></p>
