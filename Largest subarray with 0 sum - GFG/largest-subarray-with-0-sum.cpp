@@ -14,16 +14,16 @@ class Solution{
     {   
         // Your code here
         unordered_map<int,int> umap;
-       umap[0] = -1;
-       int largest = 0,sum = 0;
-       for(int i=0;i<n;i++){
-          sum+=A[i];
-          if(umap.count(sum)){
-              largest = max(largest,i-umap[sum]);
-          }
-          else umap[sum] = i;
-       }
-       return largest;
+        int sum=0,largest=0;
+        umap[0]=-1;
+        for(int i=0;i<n;i++)
+        {   sum+=A[i];
+            if(umap.count(sum))
+            largest=max(largest,i-umap[sum]);
+            else
+            umap[sum]=i;
+        }
+        return largest;
     }
 };
 
