@@ -1,5 +1,5 @@
 # Find duplicates in an array
-## Easy 
+##  Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an array a[] of size N which contains elements from 0 to N-1, you need to find all the elements occurring more than once in the given array.</span></p>
 
