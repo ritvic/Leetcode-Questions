@@ -7,22 +7,28 @@ using namespace std;
 class Solution{
     public:
 
-    // int maxIndexDiff(int A[], int N) 
-    // { 
-    //     // Your code here
-    //     int l=0,r=N-1,maxx=-1;
-    //   while(l<=r){
-    //       if(A[l]<=A[r]){
-    //           maxx=max(maxx,r-l);
-    //           l++;
-    //           r=N-1;
-    //       }       
-    //       else{
-    //           r--;
-    //       }
-    //   }
-    //   return maxx;
-    // }
+    int maxIndexDiff(int arr[], int n) 
+    { 
+        // Your code here
+        int rightMax[n];
+        rightMax[n-1]= arr[n-1];
+        for(int i = n-2; i>=0; i--)
+            rightMax[i] = max(rightMax[i+1] , arr[i]);
+        int maxDist = INT_MIN;
+        int i = 0, j = 0;
+        while(i<n && j<n)
+        {
+            if(rightMax[j] >= arr[i])
+            {
+                maxDist = max( maxDist, j-i );
+                j++;
+            }
+            else 
+                i++;
+        }
+        
+        return maxDist;
+    }
     // int maxIndexDiff(int A[], int N) 
     //   { 
     //       int ans=0;
@@ -46,28 +52,28 @@ class Solution{
     //       return ans;
     //       // Your code here
     //   }
-    int maxIndexDiff(int arr[], int N) 
-    { 
-        vector<int> lmin(N),rmax(N);
-        lmin[0] = arr[0];  // storing all the minimum values from 0
-        for(int i=1;i<N;i++){
-            lmin[i] = min(arr[i],lmin[i-1]);
-        }
-        rmax[N-1] = arr[N-1]; // storing all the maximum values from N-1
-        for(int i=N-2;i>=0;i--){
-            rmax[i] = max(arr[i],rmax[i+1]);
-        }
+    // int maxIndexDiff(int arr[], int N) 
+    // { 
+    //     vector<int> lmin(N),rmax(N);
+    //     lmin[0] = arr[0];  // storing all the minimum values from 0
+    //     for(int i=1;i<N;i++){
+    //         lmin[i] = min(arr[i],lmin[i-1]);
+    //     }
+    //     rmax[N-1] = arr[N-1]; // storing all the maximum values from N-1
+    //     for(int i=N-2;i>=0;i--){
+    //         rmax[i] = max(arr[i],rmax[i+1]);
+    //     }
         
-        int i=0,j=0,ans=-1;
-        while(i<N and j<N){
-            if(lmin[i]<=rmax[j]){
-                ans = max(ans,j-i);
-                j++;
-            }
-            else i++;
-        }
-        return ans;
-    }
+    //     int i=0,j=0,ans=-1;
+    //     while(i<N and j<N){
+    //         if(lmin[i]<=rmax[j]){
+    //             ans = max(ans,j-i);
+    //             j++;
+    //         }
+    //         else i++;
+    //     }
+    //     return ans;
+    // }
     
 };
 
