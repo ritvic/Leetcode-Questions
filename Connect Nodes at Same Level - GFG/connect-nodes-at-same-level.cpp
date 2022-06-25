@@ -141,38 +141,32 @@ class Solution
     void connect(Node *root)
     {
        // Your Code Here
-       queue<Node *> q;
-        q.push(root);
-        
-        while(!q.empty())
-        {
-            int count=q.size();
-            Node *temp;
-            
-            for(int i=0; i<count; i++)
-            {
-                Node *curr=q.front();
-                q.pop();
-                if(i==0)
-                {
-                    temp=curr;
-                }
-                else{
-                temp->nextRight=curr;
-                temp=temp->nextRight;}
-                
-                if(curr->left!=NULL)
-                {
-                    q.push(curr->left);
-                }
-                if(curr->right!=NULL)
-                {
-                    q.push(curr->right);
-                }
-                
-            }
+       queue<Node*> q;
+      q.push(root);
+      while(!q.empty()){
+          int size = q.size();
+          Node* temp;
+          for(int i=0;i<size;i++)
+          {
+              temp = q.front();
+              q.pop();
+              if(i<size-1)
+              {
+                  temp->nextRight = q.front();
+                  
+              }
+              if(temp->left)
+              {
+                  q.push(temp->left);
+              }
+              if(temp->right)
+              {
+                  q.push(temp->right);
+              }
+          }
             temp->nextRight=NULL;
-        }
+
+      }
     }    
       
 };
