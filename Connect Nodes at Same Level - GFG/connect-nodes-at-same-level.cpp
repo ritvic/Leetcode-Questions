@@ -153,16 +153,20 @@ class Solution
             {
                 Node *curr=q.front();
                 q.pop();
-                if(i==0){
+                if(i==0)
+                {
                     temp=curr;
                 }
+                {
                 temp->nextRight=curr;
-                temp=temp->nextRight;
+                temp=temp->nextRight;}
                 
-                if(curr->left!=NULL){
+                if(curr->left!=NULL)
+                {
                     q.push(curr->left);
                 }
-                if(curr->right!=NULL){
+                if(curr->right!=NULL)
+                {
                     q.push(curr->right);
                 }
                 
