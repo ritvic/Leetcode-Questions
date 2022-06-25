@@ -157,7 +157,7 @@ class Solution
                 {
                     temp=curr;
                 }
-                {
+                else{
                 temp->nextRight=curr;
                 temp=temp->nextRight;}
                 
