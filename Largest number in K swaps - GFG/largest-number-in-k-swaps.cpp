@@ -22,7 +22,7 @@ class Solution
                swap(str[idx], str[i]);
                if(maxi < str) maxi = str;
                helper(str, maxi, k, idx+1);
-               swap(str[idx], str[i]);
+              swap(str[idx], str[i]); //backtrack
            }
        }
    }
