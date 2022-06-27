@@ -9,27 +9,30 @@ using namespace std;
 class Solution
 {
     public:
-    void rec(string str, int k, int a, string &ans){
-        ans=max(ans,str);
-        if(k==0) return;
-        for(int i=a;i<str.length()-1;i++){
-            for(int j=i+1;j<str.length();j++){
-                if(str[j]>str[i]){
-                    swap(str[i],str[j]);
-                    rec(str,k-1,i+1,ans);
-                    swap(str[i],str[j]);
-                }
-            }
-        }
-    }
-    
-    string findMaximumNum(string str, int k)
-    {
-       // code here.
-       string ans=str;
-       rec(str,k,0,ans);
-       return ans;
-    }
+    //Function to find the largest number after k swaps.
+    void helper(string str, string &maxi, int k, int idx){
+       if(k==0) return;
+       char c = str[idx];
+       for(int i = idx+1; i<str.length(); ++i){
+           if(str[i]>c) c = str[i];
+       }
+       if(c != str[idx]) k--;
+       for(int i =0; i<str.length(); i++){
+           if(str[i]==c){
+               swap(str[idx], str[i]);
+               if(maxi < str) maxi = str;
+               helper(str, maxi, k, idx+1);
+               swap(str[idx], str[i]);
+           }
+       }
+   }
+   string findMaximumNum(string str, int k)
+   {
+      // code here.
+      string maxi = str;
+      helper(str, maxi, k, 0);
+      return maxi;
+   }
 };
 
 // { Driver Code Starts.
