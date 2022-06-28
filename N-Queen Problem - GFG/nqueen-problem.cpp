@@ -14,7 +14,6 @@ public:
     bool check(int col, vector<int> & temp){
         int n = temp.size(), diff = 1;
         
-        
         /*
         
         checking for upper diagonals elements and upper row same column elements
@@ -38,28 +37,26 @@ public:
     
     void solve(int row, vector<int>&temp, int n){
       
-        if(row == n){
+        if(row == n)
+        {
             ans.push_back(temp);
             return ;
         }
-        
-        for(int col=0; col<n; col++){
-            if(check(col, temp)){
+        for(int col=0; col<n; col++)
+        {
+            if(check(col, temp))
+            {
                 temp.push_back(col+1);
                 solve(row+1, temp, n);
                 temp.pop_back();
             }
         }
-        
         return ;
     }
-
-    vector<vector<int>> nQueen(int n) {
-      
+    vector<vector<int>> nQueen(int n) 
+    {
         vector<int> temp;
-        
         solve(0, temp, n);
-        
         return ans;
     }
 };
