@@ -6,34 +6,22 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
 public:
-void solve(vector<string>&ans,string s,int n,int i,string temp){
-    if(i==n){
-        ans.push_back(temp);
-        return;
-    }
-    if(s[i]==' '){
-        solve(ans,s,n,i+1,temp+' ');
-        solve(ans,s,n,i+1,temp);
-        return;
-    }
-    else {
-        solve(ans,s,n,i+1,temp+s[i]);
-        return;
-    }
-    return;
-}
 
+   vector<string> res;
+    void perm(string &S, int i, string curr){
+        if(i == S.size()){
+            res.push_back(curr);
+            return;
+        }
+        if(i)
+        perm(S, i + 1, curr + " " + S[i]);
+        perm(S, i + 1, curr + S[i]);
+        
+    }
     vector<string> permutation(string S){
-        vector<string>ans;
-        string s;
-        int n=S.length();
-        for(int i=0;i<n;i++){
-            s+=S[i];
-            if(i!=n-1)s+=' ';
-            }
-         
-            solve(ans,s,s.length(),0,"");
-            return ans;
+        // Code Here
+        perm(S, 0, "");
+        return res;
     }
 };
 
