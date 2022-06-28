@@ -7,7 +7,6 @@ using namespace std;
 class Solution
 {
     public:
-    //Function to find all possible unique subsets.
     void fun(vector<int> arr, int n, int index, vector<vector<int>>& result, vector<int>& subset)
     {
         result.push_back(subset);
@@ -17,12 +16,9 @@ class Solution
             fun(arr, n, i+1, result, subset);
             subset.pop_back();
             while (i < n-1 && arr[i+1] == arr[i])
-                ++i;
+                i++;
         }
     }
-    
-    
-    //Function to find all possible unique subsets.
     vector<vector<int> > AllSubsets(vector<int> arr, int n)
     {
         vector<vector<int>> result;
