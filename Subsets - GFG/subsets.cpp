@@ -13,15 +13,16 @@ class Solution
     public:
     vector<vector<int> > ans;
    
-   void solve(vector<int> v, vector<int> &arr, int i)
+   void solve(vector<int> &v, vector<int> &arr, int i)
    {
        if(i == arr.size()) 
           ans.push_back(v);
        else
        {
-          solve(v, arr, i+1);
-       
           v.push_back(arr[i]);
+
+          solve(v, arr, i+1);
+          v.pop_back();
           solve(v, arr, i+1);
        }
    }
