@@ -7,9 +7,11 @@ using namespace std;
 
 class Solution {
   public:
-    bool ispalin(string s){
+    bool ispalin(string s)
+    {
       int n=s.length();
-      for(int i=0;i<n/2;i++){
+      for(int i=0;i<n/2;i++)
+      {
           if(s[i]!=s[n-1-i])return false;
       }
       return true;
@@ -19,9 +21,11 @@ class Solution {
           ans.push_back(temp);
           return;
       }
-      for(int i=0;i<s.length();i++){
+      for(int i=0;i<s.length();i++)
+      {
           string chk=s.substr(0,i+1);
-          if(ispalin(chk)){
+          if(ispalin(chk))
+          {
               temp.push_back(chk);
               solve(s.substr(i+1),ans,temp);
               temp.pop_back();
