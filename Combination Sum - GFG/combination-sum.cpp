@@ -10,28 +10,25 @@ using namespace std;
 
 class Solution {
  public:
-   vector<vector<int>> result;
-    void help(int index, vector<int>& A, int B, vector<int>& p) {
-        if (B < 0)
-            return;
-        if (index == A.size()) {
-            if (B == 0)
-                result.push_back(p);
-            return;
-        }
-        p.push_back(A[index]);
-        help(index, A, B - A[index], p);
-        p.pop_back();
-        help(index + 1, A, B, p);
-    }
-    
-    vector<vector<int>> combinationSum(vector<int> &A, int B) {
-        sort(A.begin(), A.end());
-        A.erase(unique(A.begin(), A.end()), A.end());
-        vector<int> p;
-        help(0, A, B, p);
-        return result;
-    }
+   vector<vector<int>> ans;
+   void bt(int i, int sum, int B, vector<int> v, vector<int> &A) {
+       if(i>=A.size() || sum>B) return;
+       if(sum==B) {
+           ans.push_back(v); return;
+       }
+       v.push_back(A[i]);
+       bt(i, sum+A[i], B, v, A);
+       v.pop_back();
+       bt(i+1, sum, B, v, A);
+   }
+   vector<vector<int> > combinationSum(vector<int> &A, int B) {
+       sort(A.begin(), A.end());
+       auto it = unique(A.begin(), A.begin() + A.size());
+       A.resize(distance(A.begin(), it));
+       vector<int> v;
+       bt(0, 0, B, v, A);
+       return ans;
+   }
 };
 
 // { Driver Code Starts.
