@@ -10,40 +10,32 @@ using namespace std;
 class Solution{
   public:
     /*You are required to complete this method */
-    bool isInterleave(string a, string b, string c) 
+    bool isInterleave(string A, string B, string C) 
     {
-         int n=a.size();
-       int m=b.size();
-       bool dp[n+1][m+1];
-       memset(&dp,false,sizeof(dp));
-       dp[0][0]=true;
-      for (int i = 0; i <=n; i++)
-       {
-           for (int j = 0; j <=m; j++)
-           {
-               if (i==0 || j==0)
-               {
-                   dp[i][j]=true;
-               }
-               
-           }
-       }
-       for (int i = 1; i <=n; i++)
-       {
-           for (int j = 1; j <=m; j++)
-           {
-              if (a[i-1]==c[i+j-1])
-              {
-                  dp[i][j]|=dp[i-1][j];
-              }
-              if (b[j-1]==c[i+j-1])
-              {
-                  dp[i][j]|=dp[i][j-1];
-              }
-           }
-           
-       }
-       return dp[n][m];
+        int n=A.size();
+        int m=B.size();
+        bool dp[n+1][m+1];
+        if(m+n!=C.size())return 0;
+        memset(&dp,false,sizeof(dp));
+        // dp[0][0]=true;
+        for (int i = 0; i <=n; i++)
+        {
+            for (int j = 0; j <=m; j++)
+            {
+                if(i==0 && j==0)dp[i][j]=1;
+                else if (i == 0 && (B[j - 1] == C[j - 1]))
+                    dp[i][j] = dp[i][j - 1];
+                else if (j == 0 && (A[i - 1] == C[i - 1]))
+                    dp[i][j] = dp[i - 1][j];
+                else if(A[i - 1] == C[i + j - 1]&& B[j - 1] != C[i + j - 1])
+                dp[i][j] = dp[i - 1][j];
+                else if (A[i - 1] != C[i + j - 1] && B[j - 1] == C[i + j - 1])
+                    dp[i][j] = dp[i][j - 1];
+                else if (A[i - 1] == C[i + j - 1] && B[j - 1] == C[i + j - 1])
+                    dp[i][j]= (dp[i - 1][j] || dp[i][j - 1]);
+            }
+        }
+        return dp[n][m];
     }
 //      int helper(string a,string b,string c,int n,int m,int len){
 //       if(len == 0) return (1);
