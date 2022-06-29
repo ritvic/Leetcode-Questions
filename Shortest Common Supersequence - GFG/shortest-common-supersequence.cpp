@@ -16,15 +16,19 @@ class Solution
     int shortestCommonSupersequence(string X, string Y, int m, int n)
     {
         int arr[m+1][n+1];
-       for(int i =0;i<m+1;i++){
+       for(int i =0;i<m+1;i++)
+       {
            for(int j =0;j<n+1;j++)
            {
                if(i==0 || j==0)
                {
                    arr[i][j] =0;
-               }else if(X[i-1]==Y[j-1]){
+               }
+               else if(X[i-1]==Y[j-1])
+               {
                    arr[i][j] = 1+arr[i-1][j-1];
-               }else{
+               }
+               else{
                    arr[i][j] = max(arr[i-1][j],arr[i][j-1]);
                }
            }
