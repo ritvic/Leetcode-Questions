@@ -11,7 +11,7 @@ using namespace std;
 class Solution {
  public:
    vector<vector<int>> ans;
-   void bt(int i, int sum, int B, vector<int> &v, vector<int> &A) {
+   void bt(int i, int sum, int B, vector<int> v, vector<int> &A) {
        if(i>=A.size() || sum>B) return;
        if(sum==B) {
            ans.push_back(v); return;
