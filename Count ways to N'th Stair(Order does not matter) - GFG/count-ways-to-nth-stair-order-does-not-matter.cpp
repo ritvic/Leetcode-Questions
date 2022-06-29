@@ -10,11 +10,20 @@ class Solution
     public:
     //Function to count number of ways to reach the nth stair 
     //when order does not matter.
-    long long countWays(int m)
+    long long countWays(int n)
     {
         // your code here
-        return 1+m/2;
+        // return 1+m/2;
+        int dp[n+1];
+        for(int i=0; i<=n;i++)
+        dp[i]=1;
+        
+        for(int i=2;i<=n;i++)
+        dp[i]=dp[i]+dp[i-2];
+        
+        return dp[n];
     }
+    
 };
 
 // { Driver Code Starts.
