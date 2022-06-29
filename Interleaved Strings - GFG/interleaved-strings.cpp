@@ -15,9 +15,8 @@ class Solution{
         int n=A.size();
         int m=B.size();
         bool dp[n+1][m+1];
-        if(m+n!=C.size())return 0;
+        // if(m+n!=C.size())return 0;
         memset(&dp,false,sizeof(dp));
-        // dp[0][0]=true;
         for (int i = 0; i <=n; i++)
         {
             for (int j = 0; j <=m; j++)
