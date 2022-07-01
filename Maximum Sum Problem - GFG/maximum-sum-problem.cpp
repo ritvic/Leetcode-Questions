@@ -9,7 +9,7 @@ class Solution
     int dp[1000006];
     int fun(int n)
     {
-        if(n==0 || n==1)return dp[n]=0;
+        if(n==0 || n==1)return dp[n]=n;
         
         // if(n==2 || n==3) return dp[n]=n-1;
         if(dp[n]!=-1)return dp[n];
