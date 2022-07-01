@@ -23,7 +23,7 @@ class Solution{
     {
        //Use memset to set arr to zero
        
-       memset(arr,0,n*sizeof (int));
+       memset(arr,0,n*4);
     }
     
     void xor1ToN(int arr[], int n)
