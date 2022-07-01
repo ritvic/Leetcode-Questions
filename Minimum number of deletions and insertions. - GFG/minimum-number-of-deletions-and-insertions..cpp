@@ -20,13 +20,7 @@ class Solution{
                {
                    dp[i][j]=0;
                }
-           }
-       }
-       for(int i=1;i<a+1;i++)
-       {
-           for(int j=1;j<b+1;j++)
-           {
-               if(str1[i-1]==str2[j-1])
+               else if(str1[i-1]==str2[j-1])
                {
                    dp[i][j]=1+dp[i-1][j-1];
                }
