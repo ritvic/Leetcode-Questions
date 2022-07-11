@@ -128,30 +128,16 @@ int helper(Node*&root,int &ans)
 {
     if(!root) return INT_MAX; 
     if(!root->left and !root->right) 
-
     return root->data; 
-
-    auto left=helper(root->left,ans);;
-
+    auto left=helper(root->left,ans);
     auto right=helper(root->right,ans); 
-
     auto mini=min(left,right); 
-
     ans=max(ans,root->data-mini);
-
-    
-
     return min(mini,root->data); 
-
 }
-
 int maxDiff(Node* root)
-
 {
-
    int ans=INT_MIN; 
-
    helper(root,ans); 
-
    return ans;
 }
