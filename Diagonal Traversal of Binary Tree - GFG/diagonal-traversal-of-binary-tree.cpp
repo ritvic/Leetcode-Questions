@@ -128,8 +128,7 @@ vector<int> diagonal(Node *root)
   q.push(root);
   while(!q.empty()){
       Node *ptr=q.front();
-            q.pop();
-
+      q.pop();
       while(ptr!=NULL){
           ans.push_back(ptr->data);
           if(ptr->left)
