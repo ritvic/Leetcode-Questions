@@ -121,20 +121,41 @@ struct Node
 }; */
 
 
+// vector<int> diagonal(Node *root)
+// {
+//   queue<Node *> q;
+//   vector<int> ans;
+//   q.push(root);
+//   while(!q.empty()){
+//       Node *ptr=q.front();
+//       q.pop();
+//       while(ptr!=NULL){
+//           ans.push_back(ptr->data);
+//           if(ptr->left)
+//               q.push(ptr->left);
+//           ptr=ptr->right;    
+//       }
+//   }
+//   return ans;
+// }
+
+void solve(Node* root, map<int, vector<int>>&mp, int index)
+{
+   if(!root)
+       return;
+   mp[index].push_back(root->data);
+   solve(root->left, mp, index+1);
+   solve(root->right, mp, index);
+}
 vector<int> diagonal(Node *root)
 {
-  queue<Node *> q;
-  vector<int> ans;
-  q.push(root);
-  while(!q.empty()){
-      Node *ptr=q.front();
-      q.pop();
-      while(ptr!=NULL){
-          ans.push_back(ptr->data);
-          if(ptr->left)
-               q.push(ptr->left);
-           ptr=ptr->right;    
-      }
+  map<int, vector<int>>mp;
+  solve(root, mp, 1);
+  vector<int>v;
+  for(auto i:mp)
+  {
+      for(auto j:i.second)
+           v.push_back(j);
   }
-  return ans;
+  return v;
 }
