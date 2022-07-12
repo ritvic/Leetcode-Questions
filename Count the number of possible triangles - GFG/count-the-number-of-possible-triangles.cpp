@@ -12,25 +12,23 @@ class Solution
     {
     
         sort(arr,arr+n);
-        int count=0,j,k;
-        for (int i=0;i<n-2;i++)
-        {
-            j=i+1,k=n-1;
-            while (j<n-1)
-            {
-                while ( j<k)
-                {
-                    if (arr[i]+arr[j]>arr[k]){
-                    count+=k-j;
-                    j++;
-                    k=n-1;
-                }
-                else  k--;
-            }
-            j++;
-            k=n-1;}
-        }
-        return count ;
+      int count=0;
+      for(int i=n-1;i>=2;i--)
+      {
+          int temp=arr[i];
+          int l=0,r=i-1;
+          while(l<r)
+          {
+              if(arr[l]+arr[r]>temp)
+              {
+                  count+=(r-l);
+                  r--;
+              }
+              else
+              l++;
+          }
+      }
+      return count;
    // code here
    }
 };
