@@ -94,38 +94,96 @@ class Solution
 {
     public:
     //Function to serialize a tree and return a list containing nodes of tree.
-    void solve(Node *root, vector<int>&ans) {
-       if(root == NULL) {
-           ans.push_back(-1);
-           return;
-       }
-       ans.push_back(root->data);
-       solve(root->left, ans);
-       solve(root->right, ans);
-   }
-   vector<int> serialize(Node *root) 
-   {
-       vector<int>ans;
-       solve(root, ans);
-       return ans;
-   }
+//     void solve(Node *root, vector<int>&ans) {
+//       if(root == NULL) {
+//           ans.push_back(-1);
+//           return;
+//       }
+//       ans.push_back(root->data);
+//       solve(root->left, ans);
+//       solve(root->right, ans);
+//   }
+//   vector<int> serialize(Node *root) 
+//   {
+//       vector<int>ans;
+//       solve(root, ans);
+//       return ans;
+//   }
    
-   //Function to deserialize a list and construct the tree.
-   int index = 0;
-   Node * deSerialize(vector<int> &a)
-   {
-       if(index == a.size()) {
-           return NULL;
+//   //Function to deserialize a list and construct the tree.
+//   int index = 0;
+//   Node * deSerialize(vector<int> &a)
+//   {
+//       if(index == a.size()) {
+//           return NULL;
+//       }
+//       int value = a[index++];
+//       if(value == -1) {
+//           return NULL;
+//       }
+//       Node *root = new Node(value);
+//       root->left = deSerialize(a);
+//       root->right = deSerialize(a);
+//       return root;
+//   }
+     vector<int> serialize(Node *root) 
+    {
+        //Your code here
+        vector<int> res;
+        queue<Node*> q;
+        q.push(root);
+        
+        while (!q.empty()) {
+            Node* curr = q.front();
+            q.pop();
+            
+            if (!curr) {
+                res.push_back(-1);
+            }
+            else {
+                res.push_back(curr->data);     
+                q.push(curr->left);
+                q.push(curr->right);
+            }
+        }
+        
+        return res; 
+    }
+    
+    
+    //Function to deserialize a list and construct the tree.
+    Node * deSerialize(vector<int> &A)
+    {
+       //Your code here
+       Node* root = new Node(A[0]);
+       queue<Node*> q;
+       q.push(root);
+       int index = 1;
+       
+       while (!q.empty()) {
+           Node* curr = q.front();
+           q.pop();
+           
+           int newN = A[index++];
+           if (newN == -1) {
+               curr->left = NULL;
+           }
+           else {
+               curr->left = new Node(newN);
+               q.push(curr->left);
+           }
+           
+           newN = A[index++];
+           if (newN == -1) {
+               curr->right = NULL;
+           }
+           else {
+               curr->right = new Node(newN);
+               q.push(curr->right);
+           }
        }
-       int value = a[index++];
-       if(value == -1) {
-           return NULL;
-       }
-       Node *root = new Node(value);
-       root->left = deSerialize(a);
-       root->right = deSerialize(a);
        return root;
-   }
+    }
 
 };
 
