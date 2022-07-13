@@ -29,18 +29,19 @@ int main()
 
 
 
-int kthSmallest(int mat[MAX][MAX], int n, int k)
+int kthSmallest(int matrix[MAX][MAX], int n, int k)
 {
   //Your code here
-      priority_queue<int>q;
-     for(int i=0;i<n;i++)
-     {
-         for(int j=0;j<n;j++)
-         {
-             q.emplace(mat[i][j]);
-             if(q.size()>k) q.pop();
-         }
-     }
-     return q.top();
-    
+    int ans; // For general, the matrix need not be a square
+        priority_queue<vector<int>, vector<vector<int>>, greater<>> minHeap;
+        for (int r = 0; r < min(n, k); ++r)
+            minHeap.push({matrix[r][0], r, 0});
+
+        for (int i = 1; i <= k; ++i) {
+            auto top = minHeap.top(); minHeap.pop();
+            int r = top[1], c = top[2];
+            ans = top[0];
+            if (c + 1 < n) minHeap.push({matrix[r][c + 1], r, c + 1});
+        }
+        return ans;
 }
